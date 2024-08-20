@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-hant-TW">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const end = new Date(2024, 11, 28);
+        const caculate = () => {
+        const now = new Date();
+        const diff = end - now;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(diff % (1000 * 60 * 60 * 24)/ (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        return { diff, days, hours, minutes, seconds };
+        };
+
+        const formatResult = (result) => {
+            const parts = [];
+                if (result.days > 0) parts.push(`${result.days}天`);
+                if (result.hours > 0) parts.push(`${result.hours}小時`);
+                if (result.minutes > 0) parts.push(`${result.minutes}分`);
+                if (result.seconds > 0) parts.push(`${result.seconds}秒`);
+            return parts.join("");
+        };
+
+        const countdown = () => {
+            const result = caculate();
+            if ( result.diff > 0 ){
+                console.log(`距離結業日還有${formatResult(result)}`);
+            }else{
+                console.log("畢業拉！");
+                clearInterval(timer);
+            }
+        };
+        // 立即执行一次
+        countdown();
+
+        // 设置每秒更新一次
+        const timer = setInterval(countdown, 1000);
+    </script>
+</body>
+</html>
